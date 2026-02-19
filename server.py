@@ -20,6 +20,7 @@ def home():
 def chat():
     data = request.get_json(force=True)
     question = data.get("question")
+    session_id = data.get("session_id", "default")
 
     if not question:
         return jsonify({"error": "No question provided"}), 400
@@ -31,7 +32,7 @@ def chat():
     context = "\n\n".join(candidates)
 
     # 🤖 Ask Gemini
-    answer = ask_ai(context, question)
+    answer = ask_ai(context, question, session_id)
 
     return jsonify({
         "answer": answer,

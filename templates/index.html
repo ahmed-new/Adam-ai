@@ -548,6 +548,12 @@
         const sendBtn = document.getElementById('send-btn');
         const typingSound = document.getElementById('typingSound');
 
+        // --- Session management ---
+        if (!localStorage.getItem('session_id')) {
+            localStorage.setItem('session_id', crypto.randomUUID());
+        }
+        const sessionId = localStorage.getItem('session_id');
+
         // --- LocalStorage Logic ---
         function saveMessage(role, text) {
             const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
@@ -692,7 +698,10 @@
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ question: text })
+                    body: JSON.stringify({
+                        question: text,
+                        session_id: sessionId
+                    })
                 });
 
                 if (!response.ok) throw new Error('API Error');
