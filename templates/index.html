@@ -38,10 +38,12 @@
             background-color: var(--bg-deep);
             color: var(--text-main);
             height: 100vh;
+            height: 100dvh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         /* --- Animated Background Particles --- */
@@ -49,8 +51,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
             background: radial-gradient(circle at 50% 50%, #0f172a 0%, #05070a 100%);
             z-index: -2;
         }
@@ -61,6 +64,7 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .particle {
@@ -74,7 +78,7 @@
 
         @keyframes float {
             from {
-                transform: translateY(100vh) scale(0);
+                transform: translateY(110vh) scale(0);
                 opacity: 0;
             }
 
@@ -93,8 +97,10 @@
             width: 100%;
             max-width: 900px;
             height: 90vh;
+            height: 90dvh;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
             display: flex;
@@ -104,6 +110,7 @@
             position: relative;
             overflow: hidden;
             animation: appReveal 1s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
         }
 
         @keyframes appReveal {
@@ -131,25 +138,26 @@
 
         /* --- Header --- */
         header {
-            padding: 20px 30px;
+            padding: 18px 24px;
             background: rgba(15, 18, 35, 0.4);
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-shrink: 0;
             z-index: 5;
         }
 
         .assistant-profile {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .avatar-wrapper {
             position: relative;
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
         }
 
         .avatar {
@@ -157,7 +165,7 @@
             height: 100%;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
             animation: pulseGlow 3s infinite;
         }
 
@@ -170,58 +178,53 @@
         .avatar-wrapper::before {
             content: "";
             position: absolute;
-            inset: -3px;
+            inset: -2px;
             border-radius: 50%;
             background: linear-gradient(45deg, #00d2ff, #9d50bb);
             z-index: -1;
-            filter: blur(6px);
-            opacity: 0.7;
+            filter: blur(4px);
+            opacity: 0.6;
         }
 
-
-
         @keyframes pulseGlow {
-            0% {
-                box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
             }
 
             50% {
-                box-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
-            }
-
-            100% {
-                box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+                box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
             }
         }
 
         .status-dot {
             position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 12px;
-            height: 12px;
+            bottom: 1px;
+            right: 1px;
+            width: 10px;
+            height: 10px;
             background: #10b981;
-            border: 2px solid var(--bg-midnight);
+            border: 2px solid #0a0c1b;
             border-radius: 50%;
         }
 
         .assistant-info h1 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            color: var(--text-main);
+            line-height: 1.2;
         }
 
         .assistant-info span {
-            font-size: 12px;
+            font-size: 11px;
             color: #10b981;
             display: block;
-            margin-top: -2px;
         }
 
         .brand-logo {
             font-weight: 700;
             letter-spacing: 1px;
-            font-size: 14px;
+            font-size: 13px;
             background: linear-gradient(90deg, #fff, var(--accent-blue));
             -webkit-background-clip: text;
             background-clip: text;
@@ -233,16 +236,16 @@
         #chat-flow {
             flex: 1;
             overflow-y: auto;
-            padding: 30px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             scrollbar-width: thin;
             scrollbar-color: var(--glass-border) transparent;
         }
 
         #chat-flow::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
 
         #chat-flow::-webkit-scrollbar-thumb {
@@ -251,10 +254,10 @@
         }
 
         .message {
-            max-width: 80%;
+            max-width: 85%;
             display: flex;
             flex-direction: column;
-            animation: messageSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: messageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
             transform: translateY(10px);
         }
@@ -275,105 +278,45 @@
         }
 
         .bubble {
-            padding: 14px 22px;
-            border-radius: 20px;
-            font-size: 15.5px;
-            line-height: 1.6;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 15px;
+            line-height: 1.5;
             position: relative;
             direction: rtl;
             unicode-bidi: plaintext;
             white-space: pre-wrap;
+            word-wrap: break-word;
         }
 
-        /* Bot Bubble: Dark Glass + Cyan Glow Border */
         .bot .bubble {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            color: var(--text-main);
+            border: 1px solid rgba(0, 210, 255, 0.2);
             border-bottom-right-radius: 4px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 0 15px rgba(255, 255, 255, 0.03);
-            animation: botFloat 4s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        @keyframes botFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-3px);
-            }
-        }
-
-        /* User Bubble: Blue -> Indigo Gradient */
         .user .bubble {
             background: linear-gradient(135deg, #3b82f6, #6366f1);
             border-bottom-left-radius: 4px;
             color: white;
-            border: none;
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
-            font-weight: 500;
-        }
-
-        /* --- Link & Button Styling --- */
-        .chat-link {
-            color: var(--accent-blue);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border 0.3s;
-        }
-
-        .chat-link:hover {
-            border-bottom-color: var(--accent-blue);
-        }
-
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #25d366;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 10px;
-            font-size: 14px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            border: none;
-            cursor: pointer;
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-        }
-
-        .whatsapp-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
         /* --- Typing Indicator --- */
         .typing-indicator {
             display: flex;
-            gap: 5px;
-            padding: 10px 15px;
-            background: var(--ai-bubble);
-            border-radius: 20px;
+            gap: 4px;
+            padding: 10px 14px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 15px;
             width: fit-content;
-            margin-top: 5px;
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: var(--text-muted);
             border-radius: 50%;
             animation: dotWave 1.4s infinite ease-in-out;
@@ -396,32 +339,31 @@
             }
 
             30% {
-                transform: translateY(-6px);
+                transform: translateY(-4px);
             }
         }
 
         /* --- Input Area --- */
         .input-wrapper {
-            padding: 25px 30px;
+            padding: 20px 24px;
             background: rgba(15, 18, 35, 0.6);
             border-top: 1px solid var(--glass-border);
-            position: relative;
+            flex-shrink: 0;
         }
 
         .input-container {
-            position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            padding: 5px 5px 5px 15px;
-            transition: border 0.3s, box-shadow 0.3s;
+            border-radius: 16px;
+            padding: 8px 12px;
+            transition: border 0.3s;
         }
 
         .input-container:focus-within {
             border-color: var(--accent-blue);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
         }
 
         #user-input {
@@ -430,61 +372,129 @@
             border: none;
             outline: none;
             color: white;
-            padding: 12px 10px;
-            font-size: 16px;
+            padding: 8px 4px;
+            font-size: 15px;
+            max-height: 150px;
             resize: none;
-            max-height: 120px;
-            scrollbar-width: none;
         }
 
         #send-btn {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: var(--header-gradient);
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 2px;
+            margin-right: 8px;
+            transition: transform 0.2s;
+            flex-shrink: 0;
         }
 
-        #send-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        #send-btn:active {
+            transform: scale(0.95);
         }
 
         #send-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: white;
             transform: rotate(-90deg);
         }
 
-        /* --- Responsive --- */
-        @media (max-width: 600px) {
+        /* --- Link & Whatsapp --- */
+        .chat-link {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 8px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+        }
+
+        /* --- Responsive Queries --- */
+        @media (max-width: 768px) {
             .app-container {
-                height: 100vh;
+                margin: 10px;
+                height: 95vh;
+                height: 95dvh;
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                align-items: flex-start;
+            }
+
+            .app-container {
                 margin: 0;
+                height: 100vh;
+                height: 100dvh;
                 border-radius: 0;
                 border: none;
             }
 
-            .message {
-                max-width: 90%;
+            header {
+                padding: 14px 18px;
             }
 
-            header {
-                padding: 15px 20px;
+            .brand-logo {
+                display: none;
             }
 
             #chat-flow {
-                padding: 20px;
+                padding: 18px 14px;
+                gap: 12px;
+            }
+
+            .message {
+                max-width: 92%;
+            }
+
+            .bubble {
+                padding: 10px 15px;
+                font-size: 14.5px;
             }
 
             .input-wrapper {
-                padding: 15px 20px;
+                padding: 12px 14px 20px 14px;
+            }
+
+            .input-container {
+                border-radius: 14px;
+                padding: 6px 10px;
+            }
+        }
+
+        /* Landscape/Short Screen Fix */
+        @media (max-height: 500px) {
+            .app-container {
+                height: 100vh;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .avatar-wrapper {
+                width: 32px;
+                height: 32px;
+            }
+
+            header {
+                padding: 8px 15px;
             }
         }
     </style>
