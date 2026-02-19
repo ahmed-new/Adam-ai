@@ -1,0 +1,6 @@
+ragenv/
+__pycache__/
+.env
+*.pyc
+test_gemini.py
+test.html
